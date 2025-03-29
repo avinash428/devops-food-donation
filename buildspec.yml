@@ -21,7 +21,7 @@ phases:
     commands:
       - echo "Build Stage"
       - echo "PyLint Started"
-      - pylint utility_services/**/*.py || true
+      - pylint kind_bites/**/*.py || true
       - echo "pre build stage completed - PyLint Completed!!"
       - echo "Build stage completed!"
 
