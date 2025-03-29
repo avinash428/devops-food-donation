@@ -120,13 +120,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 STATIC_ROOT = "staticfiles/"
 
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-SESSION_COOKIE_AGE = 1800  
+SESSION_COOKIE_AGE = 1800
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-
 
 # smtp configuration
 
@@ -137,8 +134,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'buntygaming101@gmail.com'
 EMAIL_HOST_PASSWORD = 'icfi jifs bnyt kfsb'
 DEFAULT_FROM_EMAIL = 'From KindBites <buntygaming101@gmail.com>'
-
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
