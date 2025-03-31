@@ -75,12 +75,30 @@ WSGI_APPLICATION = "kind_bites.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+""" DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
+} """
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'food-donation-rds',
+        'USER': 'admin',
+        'PASSWORD': 'food-donation-rds',
+        'HOST': 'food-donation-rds.ccvpvj32idfp.ap-southeast-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'TEST': {
+            'NAME': 'test_food_donation',  # Use a different name for the test database
+            'CHARSET': 'utf8mb4',  # Ensures utf8 support (optional but recommended)
+            'COLLATION': 'utf8mb4_unicode_ci',
+        },
+    }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
