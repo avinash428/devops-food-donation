@@ -85,10 +85,10 @@ WSGI_APPLICATION = "kind_bites.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'food-donation-rds',
+        'NAME': 'food-donation-x23389770',
         'USER': 'admin',
-        'PASSWORD': 'food-donation-rds',
-        'HOST': 'food-donation-rds.ccvpvj32idfp.ap-southeast-1.rds.amazonaws.com',
+        'PASSWORD': 'food-donation-x23389770',
+        'HOST': 'food-donation-x23389770.ccvpvj32idfp.ap-southeast-1.rds.amazonaws.com',
         'PORT': '3306',
         'TEST': {
             'NAME': 'test_food_donation',  # Use a different name for the test database

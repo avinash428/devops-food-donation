@@ -13,9 +13,9 @@ def create_connection():
     # }
     config = {
         'user': 'admin',
-        'password': 'food-donation-rds',
-        'host': 'food-donation-rds.ccvpvj32idfp.ap-southeast-1.rds.amazonaws.com',  # or your MySQL server's IP address
-        'database': 'food-donation-rds',
+        'password': 'food-donation-x23389770',
+        'host': 'food-donation-x23389770.ccvpvj32idfp.ap-southeast-1.rds.amazonaws.com',  # or your MySQL server's IP address
+        'database': 'food-donation-x23389770',
         'raise_on_warnings': True
     }
     try:
