@@ -84,7 +84,7 @@ WSGI_APPLICATION = "kind_bites.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': 'food-donation-rds',
         'USER': 'admin',
         'PASSWORD': 'food-donation-rds',
