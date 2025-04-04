@@ -5,7 +5,7 @@ env:
     DB_NAME: "food-donation-x23389770"
     DB_USER: "admin"
     DB_HOST: "food-donation-x23389770.ccvpvj32idfp.ap-southeast-1.rds.amazonaws.com"
-    PASSWORD: 'food-donation-x23389770'
+    DB_PASSWORD: 'food-donation-x23389770'
     DB_PORT: "3306"
 
 phases:
