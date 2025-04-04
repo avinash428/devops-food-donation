@@ -102,7 +102,7 @@ DATABASES = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('DB_NAME', ''),       # DB name
         'USER': os.environ.get('DB_USER', ''),       # DB username
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),  # DB password
