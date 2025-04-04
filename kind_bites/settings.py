@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from django.core.management.utils import get_random_secret_key
-""" import pymysql
-pymysql.install_as_MySQLdb() """
+import pymysql
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,7 +83,7 @@ WSGI_APPLICATION = "kind_bites.wsgi.application"
         "NAME": BASE_DIR / "db.sqlite3",
     }
 } """
-
+""" 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -98,9 +98,23 @@ DATABASES = {
             'COLLATION': 'utf8mb4_unicode_ci',
         },
     }
+} """
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'mysql.connector.django',
+        'NAME': os.environ.get('DB_NAME', ''),       # DB name
+        'USER': os.environ.get('DB_USER', ''),       # DB username
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),  # DB password
+        'HOST': os.environ.get('DB_HOST', ''),       # DB host
+        'PORT': os.environ.get('DB_PORT', '3306'),
+        'TEST': {
+            'NAME': 'test_food_donation',  # Use a different name for the test database
+            'CHARSET': 'utf8mb4',  # Ensures utf8 support (optional but recommended)
+            'COLLATION': 'utf8mb4_unicode_ci',
+        },
+    }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
