@@ -28,7 +28,7 @@ SECRET_KEY = get_random_secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [''
+ALLOWED_HOSTS = [
 'foodapp-devops-x23389770.eba-ct6dtm5v.ap-southeast-1.elasticbeanstalk.com/','*'
 ]
 
