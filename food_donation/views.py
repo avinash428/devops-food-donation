@@ -389,8 +389,7 @@ class household_donations(View):
         household_id = request.session.get("user_id")
         donation_id = request.POST.get("delete")
         cur = conn.cursor()
-        cur.execute("delete from donation where household_id = %s and id = %s order by datetime desc",(household_id,donation_id))
-        data = cur.fetchall()
+        cur.execute("delete from donation where household_id = %s and id = %s and ngo_id = %s",(household_id,donation_id, 0))
         return redirect('household_donations')
         #return render(request, "household_donations.html")
     

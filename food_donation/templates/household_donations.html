@@ -53,7 +53,7 @@
                 <td>{{ obj.donation.5 }}</td>
                 <td>{{ obj.donation.4 }}</td>
                 <td>{{ obj.donation.6 }}</td>
-                <td style=" justify-content:center; padding: 12px; display: flex; gap: 10px;">
+                <!-- <td style=" justify-content:center; padding: 12px; display: flex; gap: 10px;">
                     <form action="{% url 'household_donations' %}" method="POST" >
                         {% csrf_token %}
                         <input type="hidden" name="delete" value="{{obj.donation.0}}"> 
@@ -61,7 +61,23 @@
                             Delete
                         </button>
                     </form>
+                </td> -->
+                <td style="justify-content:center; padding: 12px; display: flex; gap: 10px;">
+                    {% if obj.ngo_name == "Not available" %}
+                    <form action="{% url 'household_donations' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete" value="{{ obj.donation.0 }}"> 
+                        <button type="submit" style="padding: 8px 16px; background-color: #f30f0f; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                            Delete
+                        </button>
+                    </form>
+                    {% else %}
+                    <button type="#" style="padding: 8px 16px; background-color: #5c5c5c; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Delete
+                    </button>
+                    {% endif %}
                 </td>
+                
             </tr>
             {% endfor %}
         </tbody>
