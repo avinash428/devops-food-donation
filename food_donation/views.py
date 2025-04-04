@@ -75,6 +75,7 @@ class admin_ngo_list(View):
     def post(self, request, *args, **kwargs):
         
         ngo_id = request.POST.get("edit")
+        delete_id = request.POST.get("delete")
         
         if ngo_id:
             cur = conn.cursor()
@@ -85,6 +86,13 @@ class admin_ngo_list(View):
             city_name = cur.fetchone()
             
             return render(request,"admin_edit_ngo.html",context={"data":ngo_data,"city_name":city_name[0]})
+        
+        elif delete_id:
+            cur = conn.cursor()
+            cur.execute("delete from donation where ngo_id = %s",(delete_id,))
+            cur.execute("delete from mstr_ngo where id = %s",(delete_id,))
+            conn.commit()
+            return redirect("admin_ngo_list")
 
         return render(request, "admin_ngo_list.html")
     

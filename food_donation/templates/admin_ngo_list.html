@@ -104,12 +104,21 @@
                         <td>{{ obj.8 }}</td>
                         <td>{{ obj.7 }}</td>
                         <td>{{ obj.5 }}</td>
+                        
                         <td style=" justify-content:center; padding: 12px; display: flex; gap: 10px;">
                             <form action="{% url 'admin_ngo_list' %}" method="POST" >
                                 {% csrf_token %}
                                 <input type="hidden" name="edit" value="{{obj.0}}"> 
                                 <button type="submit" style="padding: 8px 16px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
                                     Edit
+                                </button>
+                            </form>
+                     
+                            <form action="{% url 'admin_ngo_list' %}" method="POST" >
+                                {% csrf_token %}
+                                <input type="hidden" name="delete" value="{{obj.0}}"> 
+                                <button type="submit" style="padding: 8px 16px; background-color: #be1818; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                    Delete
                                 </button>
                             </form>
                         </td>

@@ -77,8 +77,8 @@ WSGI_APPLICATION = "kind_bites.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-"""  
-DATABASES = {
+ 
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'food-donation-x23389770',
