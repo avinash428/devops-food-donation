@@ -28,12 +28,18 @@
                 overflow-x: auto;
                 white-space: nowrap;
             }
-
             .table th, .table td {
                 white-space: nowrap;
             }
             .filter-container {
                 margin-bottom: 20px;
+            }
+            .truncate-address {
+                max-width: 150px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                display: inline-block;
             }
         </style>
     </head>
@@ -97,22 +103,41 @@
                         <th>Food Type</th>
                         <th>Expiry</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="donationTableBody">
                   {% for obj in data %}
-                  <tr class="donation-row" data-status="{{ obj.donation.6 }}" {% if obj.donation.6 == "initiated" %}  data-url="{% url 'admin_assign_ngo' obj.donation.0 %}" style="cursor: pointer;" {% endif %}>
+                  <tr class="donation-row" data-status="{{ obj.donation.6 }}">
                       <td>{{ obj.donation.0 }}</td>
                       <td>{{ obj.household_name }}</td>
                       <td>{{ obj.ngo_name }}</td>
-                      <td>{{ obj.household_address }}</td>
+                      <td>
+                        <span class="truncate-address" title="{{ obj.household_address }}">
+                            {{ obj.household_address|slice:":20" }}...
+                        </span>
+                      </td>
                       <td>{{ obj.donation.3 }}</td>
                       <td>{{ obj.donation.4 }}</td>
                       <td>{{ obj.donation.6 }}</td>
+                      <td style="justify-content:center; padding: 12px; display: flex; gap: 10px;">
+                        {% if obj.ngo_name == "Not available" %}
+                        <form action="{% url 'admin_donations' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete" value="{{ obj.donation.0 }}"> 
+                            <button type="submit" style="padding: 8px 16px; background-color: #f30f0f; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                Delete
+                            </button>
+                        </form>
+                        {% else %}
+                        <button type="#" style="padding: 8px 16px; background-color: #5c5c5c; color: white; border: none; border-radius: 4px;">
+                            Delete
+                        </button>
+                        {% endif %}
+                    </td>
                   </tr>
                   {% endfor %}
               </tbody>
-              
             </table>
         </div>
 
@@ -129,65 +154,40 @@
         {% endif %}
 
         <script>
-            // Filter table by status
             function filterTable() {
                 var statusFilter = document.getElementById('statusFilter').value;
                 var rows = document.querySelectorAll('.donation-row');
 
                 rows.forEach(function(row) {
                     var status = row.getAttribute('data-status');
-                    if (statusFilter === '' || status === statusFilter) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
-                    }
+                    row.style.display = statusFilter === '' || status === statusFilter ? '' : 'none';
                 });
             }
 
-            // Search functionality
             document.getElementById('navbar-search-input').addEventListener('keyup', function() {
-                let input = document.getElementById('navbar-search-input').value.toLowerCase();
-                let table = document.getElementById('donations-table');
-                let tr = table.getElementsByTagName('tr');
+                let input = this.value.toLowerCase();
+                let tr = document.querySelectorAll('.donation-row');
 
-                for (let i = 1; i < tr.length; i++) {
-                    let tds = tr[i].getElementsByTagName('td');
-                    let show = false;
-                    for (let j = 0; j < tds.length; j++) {
-                        if (tds[j].innerHTML.toLowerCase().indexOf(input) > -1) {
-                            show = true;
-                            break;
-                        }
-                    }
-                    tr[i].style.display = show ? '' : 'none';
-                }
+                tr.forEach(row => {
+                    let show = Array.from(row.cells).some(td => td.innerText.toLowerCase().includes(input));
+                    row.style.display = show ? '' : 'none';
+                });
             });
 
             document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".donation-row").forEach(function (row) {
-                row.addEventListener("click", function () {
-                    let url = this.getAttribute("data-url");
-                    if (url) {
-                        window.location.href = url; // Navigate to the URL
-                    }
+                document.querySelectorAll(".donation-row").forEach(row => {
+                    row.addEventListener("click", function () {
+                        let url = this.getAttribute("data-url");
+                        if (url) window.location.href = url;
+                    });
                 });
             });
-        });
-
         </script>
 
         <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
         <script src="{% static 'assets/vendors/chart.js/chart.umd.js' %}"></script>
         <script src="{% static 'assets/vendors/datatables.net/jquery.dataTables.js' %}"></script>
         <script src="{% static 'assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js' %}"></script>
-        <script src="{% static 'assets/js/dataTables.select.min.js' %}"></script>
-        <script src="{% static 'assets/js/off-canvas.js' %}"></script>
-        <script src="{% static 'assets/js/template.js' %}"></script>
-        <script src="{% static 'assets/js/settings.js' %}"></script>
-        <script src="{% static 'assets/js/todolist.js' %}"></script>
-        <script src="{% static 'assets/js/jquery.cookie.js' %}" type="text/javascript"></script>
-        <script src="{% static 'assets/js/dashboard.js' %}"></script>
-        
     {% endblock content %}
     </body>
 </html>

@@ -163,8 +163,19 @@ class admin_add_ngo(View):
 
         
         return render(request, "admin_add_ngo.html")
-    
+
 class admin_donations(View):
+    def post(self, request, *args, **kwargs):
+        #household_id = request.session.get("user_id")
+        donation_id = request.POST.get("delete")
+        #edit_id = request.POST.get("edit")
+
+        if donation_id:
+            cur = conn.cursor()
+            cur.execute("delete from donation where id = %s and ngo_id = %s",(donation_id, 0))
+            return redirect('admin_donations')
+
+        return render(request, "admin_donations.html")
     def get(self, request, *args, **kwargs):
         admin_id = request.session.get("user_id")
         if not admin_id:
@@ -388,10 +399,14 @@ class household_donations(View):
     def post(self, request, *args, **kwargs):
         household_id = request.session.get("user_id")
         donation_id = request.POST.get("delete")
-        cur = conn.cursor()
-        cur.execute("delete from donation where household_id = %s and id = %s and ngo_id = %s",(household_id,donation_id, 0))
-        return redirect('household_donations')
-        #return render(request, "household_donations.html")
+        #edit_id = request.POST.get("edit")
+
+        if donation_id:
+            cur = conn.cursor()
+            cur.execute("delete from donation where household_id = %s and id = %s and ngo_id = %s",(household_id,donation_id, 0))
+            return redirect('household_donations')
+
+        return render(request, "household_donations.html")
     
     def get(self, request, *args, **kwargs):
         household_id = request.session.get("user_id")
@@ -422,6 +437,8 @@ class household_donations(View):
             donations.append(donation_info)
 
         return render(request, "household_donations.html",context={"data":donations,"user_id":household_id})
+
+
 
 class household_add_donation(View):
     def get(self, request, *args, **kwargs):
